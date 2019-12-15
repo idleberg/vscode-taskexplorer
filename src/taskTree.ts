@@ -115,7 +115,7 @@ export class TaskTreeDataProvider implements TreeDataProvider<TreeItem>
             {
                 await invalidateTasksCacheAppPublisher(opt2);
             }
-            else if (opt1 === "bash" || opt1 === "batch" || opt1 === "nsis" || opt1 === "perl" || opt1 === "powershell" || opt1 === "python" || opt1 === "ruby")
+            else if (opt1 === "applescript" || opt1 === "bash" || opt1 === "batch" || opt1 === "nsis" || opt1 === "perl" || opt1 === "powershell" || opt1 === "python" || opt1 === "ruby")
             {
                 await invalidateTasksCacheScript(opt2);
             }

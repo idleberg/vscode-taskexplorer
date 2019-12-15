@@ -27,7 +27,7 @@ export let views: Map<String, TreeView<TreeItem>> = new Map();
 let watchers: Map<String, FileSystemWatcher> = new Map();
 
 
-export async function activate(context: ExtensionContext, disposables: Disposable[]) 
+export async function activate(context: ExtensionContext, disposables: Disposable[])
 {
     //
     // Set up a log in the Output window
@@ -87,7 +87,7 @@ export async function activate(context: ExtensionContext, disposables: Disposabl
 }
 
 
-function processConfigChanges(context: ExtensionContext, e: ConfigurationChangeEvent) 
+function processConfigChanges(context: ExtensionContext, e: ConfigurationChangeEvent)
 {
     let refresh: boolean;
 
@@ -97,6 +97,11 @@ function processConfigChanges(context: ExtensionContext, e: ConfigurationChangeE
 
     if (e.affectsConfiguration('taskExplorer.enableAnt') || e.affectsConfiguration('taskExplorer.includeAnt')) {
         registerFileWatcherAnt(context, configuration.get<boolean>('enableAnt'));
+        refresh = true;
+    }
+
+    if (e.affectsConfiguration('taskExplorer.enableApplescript')) {
+        registerFileWatcher(context, 'applescript', '**/*.[Aa][Pp][Pp][Ll][Ee][Ss][Cc][Rr][Ii][Pp][tt]', true, configuration.get<boolean>('enableApplescript'));
         refresh = true;
     }
 
@@ -140,7 +145,7 @@ function processConfigChanges(context: ExtensionContext, e: ConfigurationChangeE
         registerFileWatcher(context, 'npm', '**/package.json', false, configuration.get<boolean>('enableNpm'));
         refresh = true;
     }
-    
+
     if (e.affectsConfiguration('taskExplorer.enableNsis')) {
         registerFileWatcher(context, 'nsis', '**/*.[Nn][Ss][Ii]', true, configuration.get<boolean>('enableNsis'));
         refresh = true;
@@ -180,7 +185,7 @@ function processConfigChanges(context: ExtensionContext, e: ConfigurationChangeE
         if (configuration.get<boolean>('enableSideBar')) {
             if (treeDataProvider) {
                 refresh = true;
-            } 
+            }
             else {
                 treeDataProvider = registerExplorer('taskExplorerSideBar', context);
             }
@@ -191,7 +196,7 @@ function processConfigChanges(context: ExtensionContext, e: ConfigurationChangeE
         if (configuration.get<boolean>('enableExplorerView')) {
             if (treeDataProvider2) {
                 refresh = true;
-            } 
+            }
             else {
                 treeDataProvider2 = registerExplorer('taskExplorer', context);
             }
@@ -201,7 +206,7 @@ function processConfigChanges(context: ExtensionContext, e: ConfigurationChangeE
     if (e.affectsConfiguration('taskExplorer.pathToAnsicon') || e.affectsConfiguration('taskExplorer.pathToAnt') ||
         e.affectsConfiguration('taskExplorer.pathToGradle') || e.affectsConfiguration('taskExplorer.pathToMake') ||
         e.affectsConfiguration('taskExplorer.pathToNsis') || e.affectsConfiguration('taskExplorer.pathToPerl') ||
-        e.affectsConfiguration('taskExplorer.pathToPython') || e.affectsConfiguration('taskExplorer.pathToRuby')  || 
+        e.affectsConfiguration('taskExplorer.pathToPython') || e.affectsConfiguration('taskExplorer.pathToRuby')  ||
         e.affectsConfiguration('taskExplorer.pathToBash') || e.affectsConfiguration('taskExplorer.pathToAppPublisher') ||
         e.affectsConfiguration('taskExplorer.pathToPowershell')) {
         refresh = true;
@@ -213,10 +218,14 @@ function processConfigChanges(context: ExtensionContext, e: ConfigurationChangeE
 }
 
 
-function registerFileWatchers(context: ExtensionContext) 
+function registerFileWatchers(context: ExtensionContext)
 {
     if (configuration.get<boolean>('enableAnt')) {
         registerFileWatcherAnt(context);
+    }
+
+    if (configuration.get<boolean>('enableApplescript')) {
+        registerFileWatcher(context, 'applescript', '**/*.[Aa][Pp][Pp][Ll][Ee][Ss][Cc][Rr][Ii][Pp][tt]', true);
     }
 
     if (configuration.get<boolean>('enableAppPublisher')) {
@@ -282,7 +291,7 @@ function registerFileWatchers(context: ExtensionContext)
 }
 
 
-async function refreshTree(taskType?: string, uri?: Uri) 
+async function refreshTree(taskType?: string, uri?: Uri)
 {
     let refreshedTasks: boolean = false;
 
@@ -315,7 +324,7 @@ async function refreshTree(taskType?: string, uri?: Uri)
 }
 
 
-function registerTaskProviders(context: ExtensionContext) 
+function registerTaskProviders(context: ExtensionContext)
 {
     //
     // Internal Task Providers
@@ -342,9 +351,9 @@ function registerFileWatcherAnt(context: ExtensionContext, enabled?: boolean)
     // all current watchers since there is no way of knowing which glob patterns were
     // removed (if any).
     //
-    for (var key in watchers.keys) 
+    for (var key in watchers.keys)
     {
-        if (key.startsWith('ant') && key !== 'ant') 
+        if (key.startsWith('ant') && key !== 'ant')
         {
             let watcher = watchers.get(key);
             watcher.onDidChange(_e => undefined);
@@ -362,7 +371,7 @@ function registerFileWatcherAnt(context: ExtensionContext, enabled?: boolean)
 }
 
 
-function registerFileWatcher(context: ExtensionContext, taskType: string, fileBlob: string, isScriptType?: boolean, enabled?: boolean) 
+function registerFileWatcher(context: ExtensionContext, taskType: string, fileBlob: string, isScriptType?: boolean, enabled?: boolean)
 {
     let watcher: FileSystemWatcher = watchers.get(taskType);
 
@@ -386,7 +395,7 @@ function registerFileWatcher(context: ExtensionContext, taskType: string, fileBl
             logFileWatcherEvent(_e, "create");
             refreshTree(taskType, _e);
         });
-    } 
+    }
     else if (watcher) {
         if (!isScriptType) {
             watcher.onDidChange(_e => undefined);
@@ -405,11 +414,11 @@ function logFileWatcherEvent(uri: Uri, type: string)
 }
 
 
-function registerExplorer(name: string, context: ExtensionContext, enabled?: boolean): TaskTreeDataProvider | undefined 
+function registerExplorer(name: string, context: ExtensionContext, enabled?: boolean): TaskTreeDataProvider | undefined
 {
     if (enabled !== false)
     {
-        if (workspace.workspaceFolders) 
+        if (workspace.workspaceFolders)
         {
             let treeDataProvider = new TaskTreeDataProvider(name, context);
             let treeView = window.createTreeView(name, { treeDataProvider: treeDataProvider, showCollapseAll: true });
@@ -422,7 +431,7 @@ function registerExplorer(name: string, context: ExtensionContext, enabled?: boo
             views.set(name, treeView);
             context.subscriptions.push(views.get(name));
             return treeDataProvider;
-        } 
+        }
         else {
             log('No workspace folders!!!');
         }

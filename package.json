@@ -2,7 +2,7 @@
     "name": "vscode-taskexplorer",
     "version": "1.21.0",
     "displayName": "Task Explorer",
-    "description": "Manage tasks for npm, vscode, ant, gradle, grunt, gulp, batch, bash, make, python, perl, powershell, ruby, and nsis",
+    "description": "Manage tasks for npm, vscode, ant, gradle, grunt, gulp, batch, bash, make, python, perl, powershell, ruby, nsis, and applescript",
     "icon": "res/gears-r-colors.png",
     "publisher": "spmeesseman",
     "license": "MIT",
@@ -41,7 +41,8 @@
         "tsc",
         "nsis",
         "batch",
-        "bash"
+        "bash",
+        "applescript"
     ],
     "main": "./out/extension",
     "activationEvents": [
@@ -441,6 +442,10 @@
                 {
                     "command": "taskExplorer.addToExcludes",
                     "when": "config.taskExplorer.enableExplorerView && view == taskExplorer && viewItem == taskFileNsis"
+                },,
+                {
+                    "command": "taskExplorer.addToExcludes",
+                    "when": "config.taskExplorer.enableExplorerView && view == taskExplorer && viewItem == taskFileApplescript"
                 },
                 {
                     "command": "taskExplorer.run",
@@ -540,6 +545,10 @@
                 {
                     "command": "taskExplorerSideBar.addToExcludes",
                     "when": "config.taskExplorer.enableSideBar && view == taskExplorerSideBar && viewItem == taskFileNsis"
+                },
+                {
+                    "command": "taskExplorerSideBar.addToExcludes",
+                    "when": "config.taskExplorer.enableSideBar && view == taskExplorerSideBar && viewItem == taskFileApplescript"
                 },
                 {
                     "command": "taskExplorerSideBar.run",
@@ -648,6 +657,11 @@
                     "default": true,
                     "description": "%config.taskExplorer.enableMake%"
                 },
+                "taskExplorer.enableApplescript": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "%config.taskExplorer.enableApplescript%"
+                },
                 "taskExplorer.enableWorkspace": {
                     "type": "boolean",
                     "default": true,
@@ -706,6 +720,10 @@
                 "taskExplorer.pathToRuby": {
                     "type": "string",
                     "description": "%config.taskExplorer.pathToRuby%"
+                },
+                "taskExplorer.pathToApplescript": {
+                    "type": "string",
+                    "description": "%config.taskExplorer.pathToApplescript%"
                 },
                 "taskExplorer.debug": {
                     "type": "boolean",

@@ -13,7 +13,7 @@
 [![GitHub issues closed](https://img.shields.io/github/issues-closed-raw/spmeesseman/vscode%2dtaskexplorer.svg?maxAge=2592000&logo=github)](https://github.com/spmeesseman/vscode-taskexplorer/issues)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-![src0](res/sources/npm.png?raw=true) ![src1](res/sources/ant.png?raw=true) ![src2](res/sources/grunt.png?raw=true) ![src3](res/sources/gulp.png?raw=true) ![src13](res/sources/gradle.png?raw=true) ![src4](res/sources/workspace.png?raw=true) ![src5](res/sources/make.png?raw=true) ![src6](res/sources/ts.png?raw=true) ![src7](res/sources/bat.png?raw=true) ![src8](res/sources/ruby.png?raw=true) ![src9](res/sources/powershell.png?raw=true) ![src10](res/sources/bash.png?raw=true) ![src11](res/sources/python.png?raw=true) ![src12](res/sources/nsis.png?raw=true)
+![src0](res/sources/npm.png?raw=true) ![src1](res/sources/ant.png?raw=true) ![src2](res/sources/grunt.png?raw=true) ![src3](res/sources/gulp.png?raw=true) ![src13](res/sources/gradle.png?raw=true) ![src4](res/sources/workspace.png?raw=true) ![src5](res/sources/make.png?raw=true) ![src6](res/sources/ts.png?raw=true) ![src7](res/sources/bat.png?raw=true) ![src8](res/sources/ruby.png?raw=true) ![src9](res/sources/powershell.png?raw=true) ![src10](res/sources/bash.png?raw=true) ![src11](res/sources/python.png?raw=true) ![src12](res/sources/nsis.png?raw=true) ![src13](res/sources/applescript.png?raw=true)
 
 ## Description
 
@@ -135,6 +135,7 @@ Bash/sh scripts in Windows will have the shell executable automatically set to a
 |`taskExplorer.enablePython`|Enable/show python scripts as tasks|`true`|
 |`taskExplorer.enableRuby`|Enable/show ruby scripts as tasks|`true`|
 |`taskExplorer.enableTsc`|Enable/show tsc npm configs as tasks|`true`|
+|`taskExplorer.enableApplescript`|Enable/show applescript npm configs as tasks|`true`|
 |`taskExplorer.enableWorkspace`|Enable/show vscode tasks|`true`|
 |`taskExplorer.enableMake`|Enable/show Makefile targets as tasks|`true`|
 |`taskExplorer.enableAnsiconForAnt`|Enable ansicon output colorization for ant tasks|`false`|",
@@ -148,6 +149,7 @@ Bash/sh scripts in Windows will have the shell executable automatically set to a
 |`taskExplorer.pathToPython`|The path to the python program, if not registered in system path|`python`|",
 |`taskExplorer.pathToPowershell`|The path to the powershell program, if not registered in system path|`powershell`|",
 |`taskExplorer.pathToRuby`|The path to the ruby program, if not registered in system path|`ruby`|",
+|`taskExplorer.pathToApplescript`|The path to the applescript program, if not registered in system path|`applescript`|",
 |`taskExplorer.debug`|Turn on logging|`false`|
 |`taskExplorer.debugLevel`|Verbosity level of logging (if turned on)|`1`|
 |`taskExplorer.exclude`|Configure glob patterns for folders that should be excluded from automatic script detection|`["**/.vscode-test/**", "**/bin/**", "**/build/**", "**/CompiledOutput/**", "**/dist/**", "**/doc/**", "**/ext/**", "**/out/**", "**/output/**", "**/packages/**", "**/release/**", "**/releases/**", "**/samples/**", "**/sdks/**", "**/static/**", "**/target/**", "**/test/**", "**/third_party/**", "**/vendor/**"]`  By default, `"**/node_modules/**"` is always applied|

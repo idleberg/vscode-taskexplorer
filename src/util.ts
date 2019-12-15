@@ -9,7 +9,7 @@ import { configuration } from './common/configuration';
 const logValueWhiteSpace = 40;
 
 
-export function camelCase(name: string, indexUpper: number) 
+export function camelCase(name: string, indexUpper: number)
 {
     if (!name) {
       return name;
@@ -23,7 +23,7 @@ export function camelCase(name: string, indexUpper: number)
 }
 
 
-export function properCase(name: string) 
+export function properCase(name: string)
 {
     if (!name) {
       return name;
@@ -75,6 +75,9 @@ export function properCase(name: string)
 //    else if (ext === ".xml") {
 //        return "ant";
 //    }
+//    else if (ext === ".applescript") {
+//        return "applescript";
+//    }
 //
 //    return null;
 //}
@@ -87,7 +90,7 @@ export function getExcludesGlob(folder: string | WorkspaceFolder) : RelativePatt
 
     if (excludes && excludes.length > 0) {
         let multiFilePattern: string = '{**/node_modules/**';
-        if (Array.isArray(excludes)) 
+        if (Array.isArray(excludes))
         {
             for (var i in excludes) {
                 multiFilePattern += ',';
@@ -106,9 +109,9 @@ export function getExcludesGlob(folder: string | WorkspaceFolder) : RelativePatt
 }
 
 
-export function isExcluded(uriPath: string) 
+export function isExcluded(uriPath: string)
 {
-    function testForExclusionPattern(path: string, pattern: string): boolean 
+    function testForExclusionPattern(path: string, pattern: string): boolean
     {
         return minimatch(path, pattern, { dot: true, nocase: true });
     }
@@ -119,9 +122,9 @@ export function isExcluded(uriPath: string)
     this.log('Check exclusion', 2);
     this.logValue('   path', uriPath, 2);
 
-    if (exclude) 
+    if (exclude)
     {
-        if (Array.isArray(exclude)) 
+        if (Array.isArray(exclude))
         {
             for (let pattern of exclude) {
                 this.logValue('   checking pattern', pattern, 3);
@@ -130,7 +133,7 @@ export function isExcluded(uriPath: string)
                     return true;
                 }
             }
-        } 
+        }
         else {
             this.logValue('   checking pattern', exclude, 3);
             if (testForExclusionPattern(uriPath, exclude)) {
@@ -145,13 +148,13 @@ export function isExcluded(uriPath: string)
 }
 
 
-export function timeout(ms: number) 
+export function timeout(ms: number)
 {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 
-export function pathExists(path: string) 
+export function pathExists(path: string)
 {
     try {
         accessSync(path);
@@ -162,7 +165,7 @@ export function pathExists(path: string)
 }
 
 
-export async function readFile(file: string): Promise<string> 
+export async function readFile(file: string): Promise<string>
 {
     return new Promise<string>((resolve, reject) => {
         fs.readFile(file, (err, data) => {
@@ -211,25 +214,25 @@ export function existsInArray(arr: any[], item: any)
             }
         });
     }
-    
+
 	return exists;
 }
 
 
-export async function log(msg: string, level?: number) 
+export async function log(msg: string, level?: number)
 {
     if (level && level > configuration.get<number>('debugLevel')) {
         return;
     }
 
-    if (workspace.getConfiguration('taskExplorer').get('debug') === true) 
+    if (workspace.getConfiguration('taskExplorer').get('debug') === true)
     {
         logOutputChannel.appendLine(msg);
     }
 }
 
 
-export async function logValue(msg: string, value: any, level?: number) 
+export async function logValue(msg: string, value: any, level?: number)
 {
     var logMsg = msg;
 
@@ -244,10 +247,10 @@ export async function logValue(msg: string, value: any, level?: number)
     if (value || value === 0 || value === '') {
         logMsg += ': ';
         logMsg += value.toString();
-    } 
+    }
     else if (value === undefined) {
         logMsg += ': undefined';
-    } 
+    }
     else if (value === null) {
         logMsg += ': null';
     }

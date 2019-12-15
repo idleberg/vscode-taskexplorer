@@ -60,6 +60,12 @@ const scriptTable = {
         type: "nsis",
         args: [],
         enabled: configuration.get("enableNsis")
+    },
+    applescript: {
+        exec: configuration.get("pathToApplescript") ? configuration.get("pathToApplescript") : "osascript",
+        type: "applescript",
+        args: [],
+        enabled: configuration.get("enableApplescript")
     }
 };
 
@@ -97,6 +103,7 @@ function refreshScriptTable()
     scriptTable.pl.exec = configuration.get("pathToPerl") ? configuration.get("pathToPerl") : "perl";
     scriptTable.nsi.exec = configuration.get("pathToNsis") ? configuration.get("pathToNsis") : "makensis";
     scriptTable.ps1.exec = configuration.get("pathToPowershell") ? configuration.get("pathToPowershell") : "powershell";
+    scriptTable.nsi.exec = configuration.get("pathToApplescript") ? configuration.get("pathToApplescript") : "applescript";
 
     scriptTable.py.enabled = configuration.get("enablePython");
     scriptTable.rb.enabled = configuration.get("enableRuby");
@@ -105,6 +112,7 @@ function refreshScriptTable()
     scriptTable.nsi.enabled = configuration.get("enablePowershell");
     scriptTable.sh.enabled = configuration.get("enableBash");
     scriptTable.bat.enabled = configuration.get("enableBatch");
+    scriptTable.nsi.enabled = configuration.get("enableApplescript");
 }
 
 
